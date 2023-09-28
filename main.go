@@ -15,7 +15,7 @@ type model struct {
 
 func initialModel() model {
 	return model{
-		choices: []string{"Buy carrots", "Buy celery"},
+		choices: []string{"Bookmarks", "Projects", "Misc"},
 		selected: make(map[int]struct{}),
 	}
 }
@@ -53,19 +53,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	var s string = "What should we buy at the market?\n\n"
+	var s string = "What would you like to do?\n\n"
 	
 	for i, choice := range m.choices {
 		cursor := " "
 		if m.cursor == i {
 			cursor = ">"
 		} 
-		checked := " "
-		if _, ok := m.selected[i]; ok {
-			checked = "x"
-		}
 		
-		s += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
+		s += fmt.Sprintf("%s %s\n", cursor, choice)
 	}
 	s, err := cowsay.Say(s, cowsay.Type("default"), cowsay.BallonWidth(40));
 	if err != nil{

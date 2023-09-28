@@ -3,9 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	// "net/http"
 	tea "github.com/charmbracelet/bubbletea"
-	// "nmyk.io/cowsay"
+	cowsay "github.com/Code-Hex/Neo-cowsay/v2"
 )
 
 type model struct {
@@ -67,6 +66,10 @@ func (m model) View() string {
 		}
 		
 		s += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
+	}
+	s, err := cowsay.Say(s, cowsay.Type("default"), cowsay.BallonWidth(40));
+	if err != nil{
+		panic(err);
 	}
 	s += "\nPress q to quit.\n"
 	return s
